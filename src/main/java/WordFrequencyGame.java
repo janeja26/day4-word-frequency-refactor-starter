@@ -3,6 +3,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
     public String getResult(String inputStr){
@@ -24,22 +27,20 @@ public class WordFrequencyGame {
 
 
     private List<WordFrequency> countWords(String[] words) {
-        Map<String, Integer> countMap = new HashMap<>();
-        for (String word : words) {
-            countMap.put(word, countMap.getOrDefault(word, 0) + 1);
-        }
-        List<WordFrequency> result = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            result.add(new WordFrequency(entry.getKey(), entry.getValue()));
-        }
-        return result;
+        return Arrays.stream(words)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))  // 按单词分组统计
+                .entrySet().stream()
+                .map(entry -> new WordFrequency(entry.getKey(), entry.getValue().intValue()))  // 转换为WordFrequency
+                .collect(Collectors.toList());
     }
 
 
 
+
     private List<WordFrequency> sortByFrequency(List<WordFrequency> list) {
-        list.sort((w1, w2) -> Integer.compare(w2.getWordCount(), w1.getWordCount()));
-        return list;
+        return list.stream()
+                .sorted((w1, w2) -> Integer.compare(w2.getWordCount(), w1.getWordCount()))
+                .collect(Collectors.toList());
     }
 
 
