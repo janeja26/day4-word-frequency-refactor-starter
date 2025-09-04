@@ -23,6 +23,18 @@ public class WordFrequencyGame {
     }
 
 
+    private List<WordFrequency> countWords(String[] words) {
+        Map<String, Integer> countMap = new HashMap<>();
+        for (String word : words) {
+            countMap.put(word, countMap.getOrDefault(word, 0) + 1);
+        }
+        List<WordFrequency> result = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
+            result.add(new WordFrequency(entry.getKey(), entry.getValue()));
+        }
+        return result;
+    }
+
 
 
 
