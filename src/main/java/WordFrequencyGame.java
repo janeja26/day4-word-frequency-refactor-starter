@@ -36,32 +36,24 @@ public class WordFrequencyGame {
     }
 
 
-    // 按出现次数降序排序
+
     private List<WordFrequency> sortByFrequency(List<WordFrequency> list) {
         list.sort((w1, w2) -> Integer.compare(w2.getWordCount(), w1.getWordCount()));
         return list;
     }
-    
 
 
-
-    private Map<String,List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
-        Map<String, List<WordFrequency>> map = new HashMap<>();
-        for (WordFrequency wordFrequency : wordFrequencyList){
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!map.containsKey(wordFrequency.getWord())){
-                ArrayList arr = new ArrayList<>();
-                arr.add(wordFrequency);
-                map.put(wordFrequency.getWord(), arr);
-            }
-
-            else {
-                map.get(wordFrequency.getWord()).add(wordFrequency);
-            }
+    private String formatResult(List<WordFrequency> list) {
+        StringJoiner joiner = new StringJoiner("\n");
+        for (WordFrequency w : list) {
+            joiner.add(w.getWord() + " " + w.getWordCount());
         }
+        return joiner.toString();
+    }
 
 
-        return map;
+
+
     }
 
 
