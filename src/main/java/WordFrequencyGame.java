@@ -36,6 +36,13 @@ public class WordFrequencyGame {
     }
 
 
+    // 按出现次数降序排序
+    private List<WordFrequency> sortByFrequency(List<WordFrequency> list) {
+        list.sort((w1, w2) -> Integer.compare(w2.getWordCount(), w1.getWordCount()));
+        return list;
+    }
+    
+
 
 
     private Map<String,List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
